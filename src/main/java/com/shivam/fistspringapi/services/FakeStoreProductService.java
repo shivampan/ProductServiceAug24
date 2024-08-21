@@ -1,5 +1,6 @@
 package com.shivam.fistspringapi.services;
 
+import com.shivam.fistspringapi.exceptions.ProductNotFoundException;
 import com.shivam.fistspringapi.models.Product;
 import com.shivam.fistspringapi.dtos.FakeStoreProductDto;
 import com.shivam.fistspringapi.models.Category;
@@ -39,7 +40,7 @@ public class FakeStoreProductService implements ProductService {
     }
 
     @Override
-    public Product getProductById(Long id) {
+    public Product getProductById(Long id) throws ProductNotFoundException {
         //Call FakeStore API here to get the Product with given id.
         FakeStoreProductDto fakeStoreProductDto =
                 restTemplate.getForObject("https://fakestoreapi.com/products/" + id,
@@ -48,7 +49,8 @@ public class FakeStoreProductService implements ProductService {
         //2nd param -> Response
 
         if (fakeStoreProductDto == null) {
-            return null;
+            throw new ProductNotFoundException("Product with this" + id + "is not found");
+            //return null;
         }
 
         //Convert FakeStore DTO into Product object.

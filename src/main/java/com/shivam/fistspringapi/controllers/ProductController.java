@@ -1,6 +1,7 @@
 package com.shivam.fistspringapi.controllers;
 
 
+import com.shivam.fistspringapi.exceptions.ProductNotFoundException;
 import com.shivam.fistspringapi.models.Product;
 import com.shivam.fistspringapi.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class ProductController {
 
     //localhost:8080/products/1
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) {
+    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) throws ProductNotFoundException{
         Product product= productService.getProductById(id);
         ResponseEntity<Product> responseEntity;
         if(product==null){
