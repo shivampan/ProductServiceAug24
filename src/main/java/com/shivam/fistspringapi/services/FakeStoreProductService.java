@@ -49,7 +49,7 @@ public class FakeStoreProductService implements ProductService {
         //2nd param -> Response
 
         if (fakeStoreProductDto == null) {
-            throw new ProductNotFoundException("Product with this" + id + "is not found");
+            throw new ProductNotFoundException(id,"Product with this" + id + "is not found");
             //return null;
         }
 
